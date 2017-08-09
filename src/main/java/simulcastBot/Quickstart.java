@@ -101,13 +101,20 @@ public class Quickstart {
                 .setApplicationName(APPLICATION_NAME)
                 .build();
     }
-
-    public static void main(String[] args) throws IOException {
+    
+ 
+    // replaced main method with heading of constructor
+    // contents are all in a try catch statement
+    // we need to fix this later, adding to github
+    // but first check if this even works :)
+    public Quickstart() {
         // Build a new authorized API client service.
         // Note: Do not confuse this class with the
         //   com.google.api.services.calendar.model.Calendar class.
-        com.google.api.services.calendar.Calendar service =
-            getCalendarService();
+        com.google.api.services.calendar.Calendar service;
+		try {
+			service = getCalendarService();
+		
 
         // List the next 10 events from the primary calendar.
         DateTime now = new DateTime(System.currentTimeMillis());
@@ -117,6 +124,7 @@ public class Quickstart {
             .setOrderBy("startTime")
             .setSingleEvents(true)
             .execute();
+        
         List<Event> items = events.getItems();
         if (items.size() == 0) {
             System.out.println("No upcoming events found.");
@@ -130,5 +138,10 @@ public class Quickstart {
                 System.out.printf("%s (%s)\n", event.getSummary(), start);
             }
         }
+        
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }
