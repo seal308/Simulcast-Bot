@@ -6,11 +6,11 @@ public class SimulcastBot {
 
 	public static void main(String[] args) {
 		
-		Quickstart test = new Quickstart();
+		ConnectingCalendar calendarConnect = new ConnectingCalendar();
 		
 		// TODO Auto-generated method stub
 		//DiscordAPI api = Javacord.getApi("MzQwNTA4MzY4MjU3MTU1MDc1.DFzixg.tZCKhfe7Lf8X9uY32OoDpe_DAfE", true);
-		Connecting connect = new Connecting("MzQwNTA4MzY4MjU3MTU1MDc1.DFzixg.tZCKhfe7Lf8X9uY32OoDpe_DAfE");
+		ConnectingDiscord discordConnect = new ConnectingDiscord("MzQwNTA4MzY4MjU3MTU1MDc1.DFzixg.tZCKhfe7Lf8X9uY32OoDpe_DAfE");
 		System.out.println("hello");
 		
 		
