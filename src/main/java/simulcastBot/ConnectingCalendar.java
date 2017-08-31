@@ -23,6 +23,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class ConnectingCalendar {
@@ -106,7 +107,6 @@ public class ConnectingCalendar {
     // replaced main method with heading of constructor
     // contents are all in a try catch statement
     // we need to fix this later, adding to github
-    // but first check if this even works :)
     public ConnectingCalendar() {
         // Build a new authorized API client service.
         // Note: Do not confuse this class with the
@@ -115,7 +115,9 @@ public class ConnectingCalendar {
 		try {
 			service = getCalendarService();
 		
-
+			getNextEvent(service);
+			
+			/*
         // List the next 10 events from the primary calendar.
         DateTime now = new DateTime(System.currentTimeMillis());
         Events events = service.events().list("primary")
@@ -138,7 +140,57 @@ public class ConnectingCalendar {
                 System.out.printf("%s (%s)\n", event.getSummary(), start);
             }
         }
-        
+        */
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    }
+    
+    public void getNextEvent(com.google.api.services.calendar.Calendar service )
+    {
+    	DateTime now = new DateTime(System.currentTimeMillis());
+    	DateTime nowPlusTen = new DateTime(System.currentTimeMillis()+10000);
+    	System.out.println(now.getValue());
+    	System.out.println(nowPlusTen.getValue());
+    	System.out.println("I luv soup: " + service.getClass().getName());
+    	try {
+			Events events = service.events().list("primary")
+			        .setMaxResults(1)
+			        .setTimeMin(now)
+			        .setOrderBy("startTime")
+			        .setSingleEvents(true)
+			        .execute();
+			// ** I really need a query parameter for lower bounds start time.
+			// The problem is that if the event start past but still going on we still pick that event
+			// we want if the event start past to not get it
+			// can we see if we can make one? maybe look up the builder patern
+			
+			List<Event> items = events.getItems();
+			if (items.size() == 0) {
+	            System.out.println("No upcoming events found.");
+	        } else {
+	            System.out.println("Upcoming events");
+	            for (Event event : items) {
+	                DateTime start = event.getStart().getDateTime();
+	                
+	                if (start == null) {
+	                    start = event.getStart().getDate();
+	                }
+	                
+	                System.out.printf("%s (%s)\n", event.getSummary(), start);
+	                System.out.println("location: " + event.getLocation());
+	                System.out.println(TimeUnit.MILLISECONDS.toSeconds(start.getValue()- System.currentTimeMillis()));
+	                
+	                Record curRecord = new Record(event);
+	                System.out.println(curRecord.toString());
+	                Scheduling scheduleEvent = new Scheduling(curRecord);
+	                scheduleEvent.activateAlarmThenStop();
+	               
+	            }
+	        }
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
