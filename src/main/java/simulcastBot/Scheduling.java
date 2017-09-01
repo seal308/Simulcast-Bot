@@ -68,7 +68,7 @@ public class Scheduling {
 	      */
 	      fScheduler.shutdown();
 	      // getting infite loop and still trying to get 1st event
-	      //ConnectingCalendar calendar = new ConnectingCalendar();
+	      ConnectingCalendar calendar = new ConnectingCalendar();
 	    }
 	    private ScheduledFuture<?> fSchedFuture;
 	    

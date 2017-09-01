@@ -157,7 +157,7 @@ public class ConnectingCalendar {
     	System.out.println("I luv soup: " + service.getClass().getName());
     	try {
 			Events events = service.events().list("primary")
-			        .setMaxResults(1)
+			        .setMaxResults(20)
 			        .setTimeMin(now)
 			        .setOrderBy("startTime")
 			        .setSingleEvents(true)
@@ -171,9 +171,23 @@ public class ConnectingCalendar {
 			if (items.size() == 0) {
 	            System.out.println("No upcoming events found.");
 	        } else {
+	        	
+	        
+	        	Event currEvent = null;
+	        	long timeComparison;
+	        	
 	            System.out.println("Upcoming events");
 	            for (Event event : items) {
 	                DateTime start = event.getStart().getDateTime();
+	                
+	                timeComparison = start.getValue() - System.currentTimeMillis();
+	                
+	                if (currEvent==null && start != null && timeComparison >=0)
+	                {
+	                	System.out.println("WE IN THE COMPARATORS!!!!");
+	                	currEvent = event;
+	                }
+	                
 	                
 	                if (start == null) {
 	                    start = event.getStart().getDate();
@@ -183,12 +197,32 @@ public class ConnectingCalendar {
 	                System.out.println("location: " + event.getLocation());
 	                System.out.println(TimeUnit.MILLISECONDS.toSeconds(start.getValue()- System.currentTimeMillis()));
 	                
+	                // comment out below because we need to go through full list before
+	                // we know which is the correct Event
+	                /*
 	                Record curRecord = new Record(event);
 	                System.out.println(curRecord.toString());
 	                Scheduling scheduleEvent = new Scheduling(curRecord);
 	                scheduleEvent.activateAlarmThenStop();
+	                */
 	               
 	            }
+	            
+	            if (currEvent !=null)
+	            {
+		            Record curRecord = new Record(currEvent);
+	                System.out.println(curRecord.toString());
+	                Scheduling scheduleEvent = new Scheduling(curRecord);
+	                scheduleEvent.activateAlarmThenStop();
+	            }
+	            else
+	            {
+	            	// maybe throw an error?
+	            	// or do a while loop around the for loop that gets list of events to increment counter by 10
+	            	// so range goes from 10 to 20 to 30 and so on if the increment is 10
+	            	System.out.println("The retrieved list of events are invalid");
+	            }
+	            
 	        }
 			
 		} catch (IOException e) {
