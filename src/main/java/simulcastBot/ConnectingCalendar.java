@@ -27,6 +27,9 @@ import java.util.concurrent.TimeUnit;
 
 
 public class ConnectingCalendar {
+	
+	private ConnectingDiscord cDiscord;
+	
 	/** Application name. */
     private static final String APPLICATION_NAME =
         "Google Calendar API Java Quickstart";
@@ -107,7 +110,9 @@ public class ConnectingCalendar {
     // replaced main method with heading of constructor
     // contents are all in a try catch statement
     // we need to fix this later, adding to github
-    public ConnectingCalendar() {
+    public ConnectingCalendar(ConnectingDiscord cDiscord) {
+    	this.cDiscord = cDiscord;
+    	
         // Build a new authorized API client service.
         // Note: Do not confuse this class with the
         //   com.google.api.services.calendar.model.Calendar class.
@@ -212,7 +217,7 @@ public class ConnectingCalendar {
 	            {
 		            Record curRecord = new Record(currEvent);
 	                System.out.println(curRecord.toString());
-	                Scheduling scheduleEvent = new Scheduling(curRecord);
+	                Scheduling scheduleEvent = new Scheduling(curRecord, cDiscord);
 	                scheduleEvent.activateAlarmThenStop();
 	            }
 	            else

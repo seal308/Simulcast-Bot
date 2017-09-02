@@ -13,10 +13,13 @@ public class Scheduling {
 	private static final long INITIAL_DELAY = -1;
 	Record currRecord;
 	private static final boolean DONT_INTERRUPT_IF_RUNNING = false;
+	private ConnectingDiscord cDiscord;
 	
 	
 	
-	public Scheduling(Record currRecord) {
+	public Scheduling(Record currRecord, ConnectingDiscord cDiscord) {
+		this.cDiscord = cDiscord;
+		
 		this.currRecord = currRecord;
 		fScheduler = Executors.newScheduledThreadPool(NUM_THREADS); 
 		startTime = currRecord.getSecondsUntil();
@@ -45,11 +48,14 @@ public class Scheduling {
 	
 	//equivalent of soundAlarmtask
 	private final class displayInfo implements Runnable{
+		
 
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
 			System.out.println("Title: " + currRecord.getTitle());
+			System.out.println("IMAGE LINK?: " + currRecord.getLocation());
+			cDiscord.displayAnnouncement(currRecord.getTitle(), currRecord.getLocation(), currRecord.getDescription());
 			
 		}
 		
@@ -68,7 +74,7 @@ public class Scheduling {
 	      */
 	      fScheduler.shutdown();
 	      // getting infite loop and still trying to get 1st event
-	      ConnectingCalendar calendar = new ConnectingCalendar();
+	      ConnectingCalendar calendar = new ConnectingCalendar(cDiscord);
 	    }
 	    private ScheduledFuture<?> fSchedFuture;
 	    
