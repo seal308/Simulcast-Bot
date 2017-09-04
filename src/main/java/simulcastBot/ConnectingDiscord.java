@@ -3,6 +3,7 @@ package simulcastBot;
 import de.btobastian.javacord.*;
 import de.btobastian.javacord.entities.Channel;
 import de.btobastian.javacord.entities.CustomEmoji;
+import de.btobastian.javacord.entities.Server;
 import de.btobastian.javacord.entities.User;
 import de.btobastian.javacord.entities.message.Message;
 import de.btobastian.javacord.entities.message.MessageAttachment;
@@ -31,6 +32,7 @@ public class ConnectingDiscord {
 		 Channel channel1 = api.getChannelById("353091623464468480");
 		 api.connect(new FutureCallback<DiscordAPI>() {
 			  public void onSuccess(final DiscordAPI api) {
+				  
 			    // do what you want now
 				  
 				  //Ping Pong Code!
@@ -42,12 +44,78 @@ public class ConnectingDiscord {
 	                            // reply to the message
 	                            message.reply("pong");
 	                        }
+	                        
+	                        if (message.getContent().equalsIgnoreCase("++room")) {
+	  	      				  			  
+	  	      				  String currID = "";
+	  	      			
+	  	      				  Collection<Role> userRoles = (message.getAuthor().getRoles(message.getChannelReceiver().getServer()));
+	  	      				  System.out.println("Printing all roles for this user");
+	  	      				  for (Role currRole : userRoles)
+	  	      				  {
+	  	      					  if (currRole.getName().equals("Simulcast"))
+	  	      					  {
+	  	      						  displayAnnouncement("Room is Open","https://imgur.com/oFDj1cn.png","Link to room: https://www.rabb.it/seal308");
+	  	      					  }
+	  	      				  }
+	                            
+	                        }
+	                        
+	                        
+	                  
+	                        
+	                        /*
+	                      Collection<Server> servers = api.getServers();
+	      				  Server firstServer = servers.iterator().next();
+	      				  */
+	                        
+	                        /*
+	      				  
+	      				  
+	      				  String currID = "";
+	      			
+	      				  //Collection<Role> userRoles = (message.getAuthor().getRoles(firstServer));
+	      				  // above works, below seems to work:(
+	      				  Collection<Role> userRoles = (message.getAuthor().getRoles(message.getChannelReceiver().getServer()));
+	      				  System.out.println("Printing all roles for this user");
+	      				  for (Role currRole : userRoles)
+	      				  {
+	      					  System.out.println(currRole.getId());
+	      					  currID = currRole.getId();
+	      					 //if (currID.equals("353590036769538069"))
+	      					  if (currRole.getName().equals("Simulcast"))
+	      					  {
+	      						  System.out.println("You Are VERIFIED");
+	      						  message.reply("You Are VERIFIED");
+	      					  }
+	      					  else
+	      					  {
+	      						  System.out.println("SEAL SUCKS!!!!");
+	      						  message.reply("ACCESS DENIED!!!");
+	      					  }
+	      				  }
+	      				  
+	      				  */ //line 85
+	      				  
+	                        
+	                        /*
+	                        if (message.getAuthor().getRoles(ADD_SERVER))
+	                        {
+	                        	
+	                        }
+	                        */
+	                        
+	                        
+	                       
+	                        
 	                    }
 	                });
 	                // END PING PONG
-	                
+	               
 	                //practiceMessage(api);
 	                practiceMessage();
+	                
+	                
 				  
 			  }
 
