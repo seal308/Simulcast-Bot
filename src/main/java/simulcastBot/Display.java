@@ -7,10 +7,11 @@ import de.btobastian.javacord.entities.message.embed.EmbedBuilder;
 
 public class Display {
 
-	private WizardListener wizListener;
+	// private WizardListener wizListener;
+	private ChannelWizard channelWizard;
 
-	public Display(WizardListener wizListener) {
-		this.wizListener = wizListener;
+	public Display(ChannelWizard channelWizard) {
+		this.channelWizard = channelWizard;
 	}
 
 	public void outputDisplay(String title, String image, String description) {
@@ -18,7 +19,7 @@ public class Display {
 		EmbedBuilder eBuilder = new EmbedBuilder().setTitle(title).setImage(image).setDescription(description)
 				.setColor(magenta);
 
-		for (Channel currChannel : wizListener.getChannelSet())
+		for (Channel currChannel : channelWizard.getChannelSet())
 		{
 			currChannel.sendMessage("", eBuilder);
 		}

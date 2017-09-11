@@ -9,7 +9,9 @@ public class ConnectingDiscord {
 
 	private DiscordAPI api;
 
-	private WizardListener wizListener;
+	// CHANGE
+	// private WizardListener wizListener;
+	private ChannelWizard channelWizard;
 	private CommandsListener commandListener;
 	private final String DEFAULT_TEXT_CHANNEL = "353091623464468480";
 	private Display display;
@@ -18,17 +20,19 @@ public class ConnectingDiscord {
 
 		api = Javacord.getApi(token, true);
 
-		wizListener = new WizardListener();
-		commandListener = new CommandsListener(wizListener);
-		display = new Display(wizListener);
+		// CHANGE
+		// wizListener = new WizardListener();
+		channelWizard = new ChannelWizard();
+		commandListener = new CommandsListener(channelWizard);
+		display = new Display(channelWizard);
 
 		api.connect(new FutureCallback<DiscordAPI>() {
 			public void onSuccess(final DiscordAPI api) {
 
 				// Initial server/channel is "testing2"/"simulcast-task"
-				wizListener.addChannelSet(api.getChannelById(DEFAULT_TEXT_CHANNEL));
+				channelWizard.addChannelSet(api.getChannelById(DEFAULT_TEXT_CHANNEL));
 
-				api.registerListener(wizListener);
+				api.registerListener(channelWizard);
 				api.registerListener(commandListener);
 
 				botOnlineMessage();
