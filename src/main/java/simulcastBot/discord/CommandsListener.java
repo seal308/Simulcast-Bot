@@ -1,4 +1,4 @@
-package simulcastBot;
+package simulcastBot.discord;
 
 import java.util.Collection;
 
@@ -7,6 +7,10 @@ import de.btobastian.javacord.entities.message.Message;
 import de.btobastian.javacord.entities.permissions.Role;
 import de.btobastian.javacord.listener.message.MessageCreateListener;
 
+/*
+ * Description: Listens for commands, all use ++ as a prefix.
+ * Author: Seal
+ */
 public class CommandsListener implements MessageCreateListener {
 
 	private ChannelWizard channelWizard;
@@ -26,7 +30,7 @@ public class CommandsListener implements MessageCreateListener {
 		String currID = "";
 
 		Collection<Role> userRoles = (message.getAuthor().getRoles(message.getChannelReceiver().getServer()));
-		// System.out.println("Printing all roles for this user");
+
 		for (Role currRole : userRoles)
 		{
 			if (currRole.getName().equals("Simulcast"))

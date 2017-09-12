@@ -1,4 +1,4 @@
-package simulcastBot;
+package simulcastBot.discord;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,6 +7,11 @@ import java.util.Set;
 import de.btobastian.javacord.DiscordAPI;
 import de.btobastian.javacord.entities.Channel;
 import de.btobastian.javacord.entities.message.Message;
+
+/*
+ * Description: Wizard to decide on which channel to receive announcements
+ * Author: Seal
+ */
 
 public class ChannelWizard extends Wizard {
 
@@ -33,11 +38,6 @@ public class ChannelWizard extends Wizard {
 
 	@Override
 	public void validOperation(Message messageWiz, int index) {
-		// Collection<Channel> wizChannels =
-		// messageWiz.getChannelReceiver().getServer().getChannels();
-		// ArrayList<Channel> wizAL = new ArrayList<Channel>();
-		// wizAL.addAll(wizChannels);
-
 		addChannelSet(wizAL.get(index - 1));
 	}
 
@@ -72,7 +72,6 @@ public class ChannelWizard extends Wizard {
 
 		for (Channel currChannel : channels)
 		{
-			// message.reply("#" + counter + ": " + currChannel.getName());
 			replyString += counter + ": " + currChannel.getName() + "\n";
 			counter++;
 		}

@@ -1,4 +1,4 @@
-package simulcastBot;
+package simulcastBot.discord;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -8,6 +8,15 @@ import de.btobastian.javacord.entities.Channel;
 import de.btobastian.javacord.entities.User;
 import de.btobastian.javacord.entities.message.Message;
 import de.btobastian.javacord.listener.message.MessageCreateListener;
+
+/*
+ * Description: 
+ * 		Displays numbered options. 
+ * 		If user doesn't select valid option wizard checks for their next response.
+ * 		If user types exit, they get out of the wizard.
+ * 		Extend to make your own specific wizards.
+ * Author: Seal
+ */
 
 public abstract class Wizard implements MessageCreateListener {
 

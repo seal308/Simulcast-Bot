@@ -1,9 +1,14 @@
-package simulcastBot;
+package simulcastBot.discord;
 
 import java.awt.Color;
 
 import de.btobastian.javacord.entities.Channel;
 import de.btobastian.javacord.entities.message.embed.EmbedBuilder;
+
+/*
+ * Description: Displays announcements
+ * Author: Seal
+ */
 
 public class Display {
 

@@ -1,4 +1,4 @@
-package simulcastBot;
+package simulcastBot.calendar;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +24,16 @@ import com.google.api.services.calendar.CalendarScopes;
 import com.google.api.services.calendar.model.Event;
 import com.google.api.services.calendar.model.Events;
 
+import simulcastBot.discord.ConnectingDiscord;
+
+/*
+ * Description:
+ * 		Connects to google calendar, gets events, and sends the next event to scheduling
+ * 		Most of the connection code is taken from the Google API
+ * 		Moved main code to this class's constructor.
+ * 		Made getNextEvent method and modified relevant API code to meet needs.
+ * Author: Seal
+ */
 public class ConnectingCalendar {
 
 	private ConnectingDiscord cDiscord;

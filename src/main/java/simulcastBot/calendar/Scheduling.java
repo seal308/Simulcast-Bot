@@ -1,9 +1,17 @@
-package simulcastBot;
+package simulcastBot.calendar;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
+import simulcastBot.discord.ConnectingDiscord;
+
+/*
+ * Description: 
+ * 		Received the next event and schedules it to be displayed on discord at the correct time.
+ * Author: Seal
+ */
 
 public class Scheduling {
 

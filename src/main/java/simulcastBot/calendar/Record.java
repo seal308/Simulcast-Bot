@@ -1,50 +1,51 @@
-package simulcastBot;
+package simulcastBot.calendar;
 
 import java.util.concurrent.TimeUnit;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.calendar.model.Event;
 
+/*
+ * Description: Used for scheduling to get details as variables for google calendar events.
+ * Author: Seal
+ */
+
 public class Record {
 	// we just need the title, time, where, and description
-	
+
 	private String title;
 	private String location;
 	private String description;
 	private long secondsUntil;
 	private DateTime start;
-	
-	public Record(Event event)
-	{
+
+	public Record(Event event) {
 		start = event.getStart().getDateTime();
 		title = event.getSummary();
 		location = event.getLocation();
-		secondsUntil = TimeUnit.MILLISECONDS.toSeconds(start.getValue()- System.currentTimeMillis());
+		secondsUntil = TimeUnit.MILLISECONDS.toSeconds(start.getValue() - System.currentTimeMillis());
 		description = event.getDescription();
 	}
-	
-	public long getSecondsUntil()
-	{
+
+	public long getSecondsUntil() {
 		return secondsUntil;
 	}
-	
-	public String getTitle()
-	{
+
+	public String getTitle() {
 		return title;
 	}
-	
-	public String getLocation()
-	{
+
+	public String getLocation() {
 		return location;
 	}
-	
-	public String getDescription()
-	{
+
+	public String getDescription() {
 		return description;
 	}
-	
-	public String toString() { 
-	    return "title: '" + title + "', secondsUntil: '" + secondsUntil + "', description: '" + description + "', location: '" + location + "'";
-	} 
+
+	public String toString() {
+		return "title: '" + title + "', secondsUntil: '" + secondsUntil + "', description: '" + description
+				+ "', location: '" + location + "'";
+	}
 
 }

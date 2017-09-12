@@ -1,4 +1,4 @@
-package simulcastBot;
+package simulcastBot.discord;
 
 import com.google.common.util.concurrent.FutureCallback;
 
@@ -9,8 +9,6 @@ public class ConnectingDiscord {
 
 	private DiscordAPI api;
 
-	// CHANGE
-	// private WizardListener wizListener;
 	private ChannelWizard channelWizard;
 	private CommandsListener commandListener;
 	private final String DEFAULT_TEXT_CHANNEL = "353091623464468480";
@@ -20,8 +18,6 @@ public class ConnectingDiscord {
 
 		api = Javacord.getApi(token, true);
 
-		// CHANGE
-		// wizListener = new WizardListener();
 		channelWizard = new ChannelWizard();
 		commandListener = new CommandsListener(channelWizard);
 		display = new Display(channelWizard);
